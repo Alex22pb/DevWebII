@@ -18,7 +18,7 @@ public class AplCadastroAtor {
         
         return null;
     }
-    public void inserir(ator ator) {
+    public void inserir(String nome) {
         // insere ator no banco
     }
     public void excluir(int id) {

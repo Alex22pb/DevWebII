@@ -4,14 +4,25 @@
  */
 package model.domain;
 
+import javax.persistence.*;
+
 /**
  *
  * @author User
  */
-public class ator {
+@Entity
+@Table(name = "ator")
+public class ator{
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
     private String name;
 
+    public ator() {
+    }
+    
     public ator(int id, String name) {
         this.id = id;
         this.name = name;

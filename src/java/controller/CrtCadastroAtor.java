@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.application.AplCadastroAtor;
 
 /**
  *
@@ -57,7 +58,25 @@ public class CrtCadastroAtor extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String op = request.getParameter("operacao");
+
+        switch(op){
+
+        
+            case "inserir":
+                String nome = request.getParameter("txt_nome");
+                
+                if(AplCadastroAtor.inserir(nome) == AplCadastroAtor.Sucesso){
+                    response.sendRedirect("MensagemSucesso.html");
+                }else{
+                    response.sendRedirect("MensagemErro.html");
+                }
+                break;
+            case "atualizar":
+                break;
+            case "excluir":
+                break;
+            }
     }
 
     /**
