@@ -31,9 +31,9 @@ public class CrtCadastroAtor extends HttpServlet {
                 String nome = request.getParameter("txt_name");
 
                 if (AplCadastroAtor.inserir(nome) == AplCadastroAtor.SUCESSO) {
-                    response.sendRedirect("MensagemSucesso.html");
+                    response.sendRedirect("view/MensagemSucesso.html");
                 } else {
-                    response.sendRedirect("MensagemErro.html");
+                    response.sendRedirect("view/MensagemErro.html");
                 }
                 break;
             case "atualizar":

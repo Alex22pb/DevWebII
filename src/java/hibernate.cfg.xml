@@ -10,7 +10,7 @@
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/SistemaLocadora</property>
         <property name="hibernate.connection.username">postgres</property>
-        <property name="hibernate.connection.password">postgres</property>
+        <property name="hibernate.connection.password">1320</property>
 
         <!-- Dialeto do PostgreSQL -->
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
@@ -20,10 +20,10 @@
         <property name="hibernate.format_sql">true</property>
 
         <!-- Atualizar o schema do banco -->
-        <property name="hibernate.hbm2ddl.auto">create</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
 
         <!-- Mapear suas classes se quiser -->
-        <mapping class="model.ator"/>
+        <mapping class="model.domain.Ator"/>
 
     </session-factory>
 </hibernate-configuration>
