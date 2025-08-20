@@ -12,7 +12,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "ator")
-public class ator{
+    public class Ator{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,15 +20,15 @@ public class ator{
     
     private String name;
 
-    public ator() {
+    public Ator() {
     }
     
-    public ator(int id, String name) {
+    public Ator(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public ator(String name) {
+    public Ator(String name) {
         this.name = name;
     }
 
