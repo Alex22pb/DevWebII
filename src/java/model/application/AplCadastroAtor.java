@@ -19,50 +19,101 @@ import utils.Conection;
  * @author User
  */
 public class AplCadastroAtor {
+
     public static int NOMEINVALIDO = 1;
     public static int PERSISTENCIA = 2;
     public static int ERRO_GERAL = 3;
     public static int SUCESSO = 4;
-    
-    
-     public List<Ator> listarTodos() {
+
+    public List<Ator> listarTodos() {
         // consulta no banco e retorna lista de atores
-        
-        
+
         return null;
     }
-    public static int inserir(String nome) throws IOException {
-        // insere ator no banco
-        if((nome.equals("")) || (nome == null)){
+
+    public static int inserir(String nome) {
+        if (nome == null || nome.trim().isEmpty()) {
             return NOMEINVALIDO;
         }
-        
+
         Ator actor = new Ator(nome);
-        
         Session s = Conection.getSession();
-	Transaction t = null;
-        
+        Transaction t = null;
+
         try {
             t = s.beginTransaction();
             s.save(actor);
-            
             t.commit();
-            
             return SUCESSO;
-        }catch(HibernateException he){
-            t.rollback();
+        } catch (HibernateException he) {
+            if (t != null) {
+                t.rollback();
+            }
             return PERSISTENCIA;
-        }catch(Exception e){
-            t.rollback();
+        } catch (Exception e) {
+            if (t != null) {
+                t.rollback();
+            }
             return ERRO_GERAL;
-        }finally{
+        } finally {
+            if (s != null && s.isOpen()) {
+                s.close();
+            }
+        }
+    }
+
+    public int excluir(int id) {
+        Session s = Conection.getSession();
+        Transaction t = null;
+
+        try {
+            t = s.beginTransaction();
+
+            // Busca o ator pelo id
+            Ator ator = s.get(Ator.class, id);
+            if (ator == null) {
+                return NOMEINVALIDO; 
+            }
+
+            s.delete(ator); 
+            t.commit();
+            return SUCESSO;
+        } catch (HibernateException he) {
+            if (t != null) {
+                t.rollback();
+            }
+            return PERSISTENCIA;
+        } catch (Exception e) {
+            if (t != null) {
+                t.rollback();
+            }
+            return ERRO_GERAL;
+        } finally {
             s.close();
         }
     }
-    public void excluir(int id) {
-        // exclui ator do banco
-    }
-    public void atualizar(Ator ator) {
-        // atualiza ator no banco
+
+    public int atualizar(Ator ator) {
+        Session s = Conection.getSession();
+        Transaction t = null;
+
+        try {
+            t = s.beginTransaction();
+            s.update(ator); 
+            t.commit();
+            return SUCESSO;
+        } catch (HibernateException he) {
+            if (t != null) {
+                t.rollback();
+            }
+            return PERSISTENCIA;
+        } catch (Exception e) {
+            if (t != null) {
+                t.rollback();
+            }
+            return ERRO_GERAL;
+        } finally {
+            s.close();
+        }
     }
 }

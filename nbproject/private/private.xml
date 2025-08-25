@@ -3,12 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/NetBeansProjects/SistemaLocadora/src/java/hibernate.cfg.xml</file>
-            <file>file:/D:/NetBeansProjects/SistemaLocadora/src/java/model/application/AplCadastroAtor.java</file>
-            <file>file:/D:/NetBeansProjects/SistemaLocadora/web/view/ator.html</file>
-            <file>file:/D:/NetBeansProjects/SistemaLocadora/src/java/controller/CrtCadastroAtor.java</file>
-            <file>file:/D:/NetBeansProjects/SistemaLocadora/src/java/utils/Conection.java</file>
-            <file>file:/D:/NetBeansProjects/SistemaLocadora/src/java/model/domain/Ator.java</file>
+            <file>file:/D:/Users/2022222760020/Documents/NetBeansProjects/SistemaLocadora/src/java/utils/Conection.java</file>
+            <file>file:/D:/Users/2022222760020/Documents/NetBeansProjects/SistemaLocadora/src/java/model/application/AplCadastroAtor.java</file>
+            <file>file:/D:/Users/2022222760020/Documents/NetBeansProjects/SistemaLocadora/src/java/model/domain/ator.java</file>
+            <file>file:/D:/Users/2022222760020/Documents/NetBeansProjects/SistemaLocadora/src/java/controller/CrtCadastroAtor.java</file>
+            <file>file:/D:/Users/2022222760020/Documents/NetBeansProjects/SistemaLocadora/web/view/ator.html</file>
+            <file>file:/D:/Users/2022222760020/Documents/NetBeansProjects/SistemaLocadora/web/view/index.html</file>
+            <file>file:/D:/Users/2022222760020/Documents/NetBeansProjects/SistemaLocadora/src/java/hibernate.cfg.xml</file>
         </group>
     </open-files>
 </project-private>

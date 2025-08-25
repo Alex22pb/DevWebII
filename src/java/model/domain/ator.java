@@ -18,6 +18,7 @@ import javax.persistence.*;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
+    @Column(name = "nome")
     private String name;
 
     public Ator() {

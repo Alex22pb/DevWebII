@@ -30,11 +30,11 @@ public class Conection {
             SessionFactory factory = meta.getSessionFactoryBuilder().build();
             s = factory.openSession();
 
-            Configuration configuration = new Configuration();
-            configuration.configure();
-            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
-            SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-            s = sessionFactory.openSession();
+//            Configuration configuration = new Configuration();
+//            configuration.configure();
+//            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+//            SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+//            s = sessionFactory.openSession();
         }
         return s;
     }
