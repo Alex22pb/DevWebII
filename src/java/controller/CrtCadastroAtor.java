@@ -11,7 +11,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 import model.application.AplCadastroAtor;
+import model.domain.Ator;
 
 /**
  *
@@ -37,9 +39,20 @@ public class CrtCadastroAtor extends HttpServlet {
                 }
                 break;
             case "atualizar":
+                String novoNome = request.getParameter("");
+                if(AplCadastroAtor.atualizar(novoNome)== AplCadastroAtor.SUCESSO){
+                    
+                }else{
+                    
+                }
                 break;
             case "excluir":
                 break;
+            case "listar":
+                List<Ator> atores = AplCadastroAtor.listarTodos();
+                request.setAttribute("listaAtores", atores);
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
+            break;
         }
     }
 

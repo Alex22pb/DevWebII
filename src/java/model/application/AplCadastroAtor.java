@@ -25,10 +25,19 @@ public class AplCadastroAtor {
     public static int ERRO_GERAL = 3;
     public static int SUCESSO = 4;
 
-    public List<Ator> listarTodos() {
-        // consulta no banco e retorna lista de atores
+    public static List<Ator> listarTodos() {
+        Session s = Conection.getSession();
+        List<Ator> atores = null;
 
-        return null;
+        try {
+            atores = s.createQuery("FROM Ator", Ator.class).list();
+        } catch (HibernateException he) {
+            System.out.println("Erro ao listar atores: " + he.getMessage());
+        } finally {
+            s.close();
+        }
+
+        return atores;
     }
 
     public static int inserir(String nome) {
@@ -62,7 +71,7 @@ public class AplCadastroAtor {
         }
     }
 
-    public int excluir(int id) {
+    public static int excluir(int id) {
         Session s = Conection.getSession();
         Transaction t = null;
 
@@ -72,10 +81,10 @@ public class AplCadastroAtor {
             // Busca o ator pelo id
             Ator ator = s.get(Ator.class, id);
             if (ator == null) {
-                return NOMEINVALIDO; 
+                return NOMEINVALIDO;
             }
 
-            s.delete(ator); 
+            s.delete(ator);
             t.commit();
             return SUCESSO;
         } catch (HibernateException he) {
@@ -93,13 +102,13 @@ public class AplCadastroAtor {
         }
     }
 
-    public int atualizar(Ator ator) {
+    public static int atualizar(String nome) {
         Session s = Conection.getSession();
         Transaction t = null;
 
         try {
             t = s.beginTransaction();
-            s.update(ator); 
+            s.update(nome);
             t.commit();
             return SUCESSO;
         } catch (HibernateException he) {
