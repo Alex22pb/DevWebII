@@ -26,7 +26,7 @@ public class AplCadastroAtor {
     public static int SUCESSO = 4;
 
     public static List<Ator> listarTodos() {
-        Session s = Conection.getSession();
+        Session s = Conection.getSessionFactory().openSession();
         List<Ator> atores = null;
 
         try {
@@ -46,7 +46,7 @@ public class AplCadastroAtor {
         }
 
         Ator actor = new Ator(nome);
-        Session s = Conection.getSession();
+        Session s = Conection.getSessionFactory().openSession();
         Transaction t = null;
 
         try {
@@ -72,7 +72,7 @@ public class AplCadastroAtor {
     }
 
     public static int excluir(int id) {
-        Session s = Conection.getSession();
+        Session s = Conection.getSessionFactory().openSession();
         Transaction t = null;
 
         try {
@@ -102,27 +102,36 @@ public class AplCadastroAtor {
         }
     }
 
-    public static int atualizar(String nome) {
-        Session s = Conection.getSession();
+    public static int atualizar(int id, String novoNome) {
+        if (novoNome == null || novoNome.trim().isEmpty()) {
+            return NOMEINVALIDO;
+        }
+
+        Session s = Conection.getSessionFactory().openSession();
         Transaction t = null;
 
         try {
             t = s.beginTransaction();
-            s.update(nome);
+
+            Ator ator = s.get(Ator.class, id);
+            if (ator == null) {
+                return NOMEINVALIDO;
+            }
+
+            ator.setName(novoNome);  // atualiza o nome
+            s.update(ator);          // atualiza no banco
+
             t.commit();
             return SUCESSO;
         } catch (HibernateException he) {
-            if (t != null) {
-                t.rollback();
-            }
+            if (t != null) t.rollback();
             return PERSISTENCIA;
         } catch (Exception e) {
-            if (t != null) {
-                t.rollback();
-            }
+            if (t != null) t.rollback();
             return ERRO_GERAL;
         } finally {
-            s.close();
+            if (s != null && s.isOpen()) s.close();
         }
     }
+
 }

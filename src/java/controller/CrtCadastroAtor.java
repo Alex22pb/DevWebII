@@ -23,42 +23,76 @@ import model.domain.Ator;
 public class CrtCadastroAtor extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String op = request.getParameter("operacao");
 
-        switch (op) {
+        if (op == null) {
+            response.sendRedirect(".");
+            return;
+        }
 
+        switch (op) {
             case "inserir":
                 String nome = request.getParameter("txt_name");
-
                 if (AplCadastroAtor.inserir(nome) == AplCadastroAtor.SUCESSO) {
-                    response.sendRedirect("view/MensagemSucesso.html");
+                    response.sendRedirect(".");
                 } else {
-                    response.sendRedirect("view/MensagemErro.html");
+                    response.sendRedirect(".");
                 }
                 break;
+
             case "atualizar":
-                String novoNome = request.getParameter("");
-                if(AplCadastroAtor.atualizar(novoNome)== AplCadastroAtor.SUCESSO){
-                    
-                }else{
-                    
+                String idStr = request.getParameter("id");
+                String novoNome = request.getParameter("txt_name");
+                if (idStr != null && !idStr.isEmpty() &&
+                    AplCadastroAtor.atualizar(Integer.parseInt(idStr), novoNome) == AplCadastroAtor.SUCESSO) {
+                    response.sendRedirect(".");
+                } else {
+                    response.sendRedirect(".");
                 }
                 break;
+
             case "excluir":
+                String idExcluir = request.getParameter("id");
+                if (idExcluir != null && AplCadastroAtor.excluir(Integer.parseInt(idExcluir)) == AplCadastroAtor.SUCESSO) {
+                    response.sendRedirect(".");
+                } else {
+                    response.sendRedirect(".");
+                }
                 break;
+
             case "listar":
                 List<Ator> atores = AplCadastroAtor.listarTodos();
-                request.setAttribute("listaAtores", atores);
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
-            break;
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+
+                StringBuilder json = new StringBuilder("[");
+                for (int i = 0; i < atores.size(); i++) {
+                    Ator a = atores.get(i);
+                    json.append("{")
+                        .append("\"id\":").append(a.getId()).append(",")
+                        .append("\"nome\":\"").append(a.getName().replace("\"", "\\\"")).append("\"")
+                        .append("}");
+                    if (i < atores.size() - 1) json.append(",");
+                }
+                json.append("]");
+
+                response.getWriter().write(json.toString());
+                break;
+
+
+            default:
+                response.sendRedirect(".");
+                break;
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+        doPost(request, response);
     }
 }
+
